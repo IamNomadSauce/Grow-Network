@@ -16,37 +16,29 @@ var Cannabis = React.createClass({
     var that = this;
     this.setState({isLoading: true});
     var dataL = [];
-
-
-    const CANNABIS_REPORTS_URL = 'https://www.cannabisreports.com/api/v1.0/strains/search/:blue'
+    // const CANNABIS_REPORTS_URL = 'https://www.cannabisreports.com/api/v1.0/strains/search/:blue'
     // var requestUrl = '${CANNABIS_REPORTS_URL}${name}';
-
-    // TODO Transfer over ApI once bug is fixed from weather.jsx
-    return axios.get(CANNABIS_REPORTS_URL)
-  .then((res) => {
-    dataL =  [res.data.data];
-
-    for (var i = 0, len = dataL[0].length; i < len; i++) {
-      console.log(dataL[0][i].name);
-    }
-    console.log(dataL[0][1].name);
-    that.setState({
-      name:name,
-      isLoading: false
+    CannabisReports.getStrain(name).then(function(searchL) {
+      // console.log('FROMcannabisPAGE-dataL: ' + dataL);
+      that.setState({
+        name: name,
+        dataL: searchL,
+        isLoading: false
+      });
+    },
+    function(errorMessage) {
+      alert(errorMessage);
+      that.setState({isLoading: false});
     });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
   },
   render: function () {
-    var {isLoading, name} = this.state;
+    var {isLoading, name, dataL} = this.state;
+    // console.log('C-Page - Render');
     function renderMessage() {
       if(isLoading) {
         return <h2>Searching Strains...</h2>;
       } else if (name) {
-        return <CannabisMessage name={name} />;
+        return <CannabisMessage name={name} dataL={dataL}/>;
       }
     }
 

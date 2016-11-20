@@ -1,5 +1,19 @@
+var webpack = require('webpack');
+
 module.exports = {
-  entry: './app/app.jsx',
+  entry: [
+    // 'script!jquery/dist/jquery.min.js',
+    './app/app.jsx'
+  ],
+  externals: [
+    // jquery: 'jQuery'
+  ],
+  plugins: [
+    // new webpack.ProvidePlugin({
+      // '$': 'jquery',
+      // 'jQuery': 'jquery'
+    // })
+  ],
   output: {
     path: __dirname,
     filename: './public/bundle.js'
@@ -10,7 +24,7 @@ module.exports = {
       Main: 'app/components/Main.jsx',
       NavBarDeluxe: 'app/components/NavBarDeluxe.jsx',
       Weather: 'app/components/Weather.jsx',
-      About: 'app/components/About.jsx',
+      TodoApp: 'app/components/TodoApp.jsx',
       Examples: 'app/components/Examples.jsx',
       WeatherMessage: 'app/components/WeatherMessage.jsx',
       WeatherForm: 'app/components/WeatherForm.jsx',
@@ -18,7 +32,9 @@ module.exports = {
       CannabisReports: 'app/api/CannabisReports.jsx',
       CannabisMessage: 'app/components/CannabisMessage.jsx',
       CannabisForm: 'app/components/CannabisForm.jsx',
-      Cannabis: 'app/components/Cannabis.jsx'
+      Cannabis: 'app/components/Cannabis.jsx',
+      Navigation: 'app/components/Navigation.jsx',
+      Strain: 'app/components/Strain.jsx'
 
     },
     extensions: ['', '.js', '.jsx']

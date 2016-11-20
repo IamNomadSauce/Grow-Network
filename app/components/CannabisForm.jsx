@@ -19,7 +19,6 @@ var CannabisForm = React.createClass({
             <Button>submit</Button>
         </form>
       </div>
-
     );
   }
 });

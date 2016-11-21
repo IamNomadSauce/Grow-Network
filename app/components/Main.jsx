@@ -1,5 +1,4 @@
 var React = require('react');
-// var NavBarDeluxe = require('NavBarDeluxe');
 var NavBarDeluxe = require('NavBarDeluxe');
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';

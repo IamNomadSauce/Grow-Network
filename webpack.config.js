@@ -1,18 +1,19 @@
 var webpack = require('webpack');
+var path = require('path');
 
 module.exports = {
   entry: [
-    // 'script!jquery/dist/jquery.min.js',
+    'script!jquery/dist/jquery.min.js',
     './app/app.jsx'
   ],
-  externals: [
-    // jquery: 'jQuery'
-  ],
+  externals: {
+    jquery: 'jQuery'
+  },
   plugins: [
-    // new webpack.ProvidePlugin({
-      // '$': 'jquery',
-      // 'jQuery': 'jquery'
-    // })
+    new webpack.ProvidePlugin({
+      '$': 'jquery',
+      'jQuery': 'jquery'
+    })
   ],
   output: {
     path: __dirname,
@@ -20,22 +21,12 @@ module.exports = {
   },
   resolve: {
     root: __dirname,
+    modulesDirectories: [
+      'node_modules',
+      './app/components/',
+      './app/api/'
+    ],
     alias: {
-      Main: 'app/components/Main.jsx',
-      NavBarDeluxe: 'app/components/NavBarDeluxe.jsx',
-      Weather: 'app/components/Weather.jsx',
-      TodoApp: 'app/components/TodoApp.jsx',
-      Examples: 'app/components/Examples.jsx',
-      WeatherMessage: 'app/components/WeatherMessage.jsx',
-      WeatherForm: 'app/components/WeatherForm.jsx',
-      openWeatherMap: 'app/api/openWeatherMap.jsx',
-      CannabisReports: 'app/api/CannabisReports.jsx',
-      CannabisMessage: 'app/components/CannabisMessage.jsx',
-      CannabisForm: 'app/components/CannabisForm.jsx',
-      Cannabis: 'app/components/Cannabis.jsx',
-      Navigation: 'app/components/Navigation.jsx',
-      Strain: 'app/components/Strain.jsx'
-
     },
     extensions: ['', '.js', '.jsx']
   },

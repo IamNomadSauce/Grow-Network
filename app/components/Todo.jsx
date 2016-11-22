@@ -1,15 +1,30 @@
 var React = require('react');
+var moment = require('moment');
+
+require('app/assets/styles/todostyles.scss');
 
 var Todo = React.createClass({
 
   render: function() {
-    var {id, text, completed} = this.props;
+    var {id, text, completed, createdAt, completedAt, styles, value} = this.props;
+    var renderDate = () => {
+      var message = 'Created ';
+      var timestamp = createdAt;
+
+      if (completed) {
+        message = 'Completed ';
+        timestamp = completedAt;
+      }
+
+      return message + moment.unix(timestamp).format('MMM Do YYYY @ h:mm a');
+    };
     return (
-      <div onClick={() => {
+      <div className="card_container" onClick={() => {
           this.props.onToggle(id);
         }}>
-        <input type="checkbox" checked={completed}/>
-        <h3>{text}</h3>
+        <input type="checkbox" checked={completed} />
+        <div className="card_header">{text}</div>
+        <div className="card_footer">{renderDate()}</div>
       </div>
     );
   }

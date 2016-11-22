@@ -1,10 +1,14 @@
 var React = require('react');
 var uuid = require('node-uuid');
+var moment = require('moment');
+import {Card, CardActions, CardHeader, CardMedia, CardText} from 'material-ui/Card'
+
 
 var TodoList = require('TodoList');
 var AddTodo = require('AddTodo');
 var TodoSearch = require('TodoSearch');
 var TodoAPI = require('TodoAPI');
+require('app/assets/styles/todostyles.scss');
 
 
 var TodoApp = React.createClass({
@@ -12,6 +16,7 @@ var TodoApp = React.createClass({
     return {
       showCompleted: false,
       searchText: '',
+      value: '',
       todos: TodoAPI.getTodos()
     };
   },
@@ -23,9 +28,11 @@ var TodoApp = React.createClass({
       todos: [
         ...this.state.todos,
         {
-          id: uuid(),
-          text: text,
-          completed: false
+          id:           uuid(),
+          text:         text,
+          completed:    false,
+          createdAt:    moment().unix(),
+          completedAt:  undefined
         }
       ]
     });
@@ -34,6 +41,7 @@ var TodoApp = React.createClass({
     var updatedTodos = this.state.todos.map((todo) => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
+        todo.completedAt = todo.completed ? moment().unix() : undefined;
       }
 
       return todo;
@@ -51,10 +59,24 @@ var TodoApp = React.createClass({
     var {todos, showCompleted, searchText} = this.state;
     var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
     return (
-      <div>
-        <TodoSearch onSearch={this.handleSearch}/>
-        <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
-        <AddTodo onAddTodo={this.handleAddTodo}/>
+      <div className="col-md-12">
+        <div className="col-md-4">
+
+        </div>
+        <div className="col-md-4 main_contain">
+          <Card
+            style={{
+              padding: '15px'
+
+            }} >
+            <AddTodo onAddTodo={this.handleAddTodo}/>
+            <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+            <TodoSearch onSearch={this.handleSearch}/>
+          </Card>
+        </div>
+        <div className="col-md-4">
+
+        </div>
       </div>
     )
   }

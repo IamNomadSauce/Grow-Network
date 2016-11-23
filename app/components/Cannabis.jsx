@@ -2,29 +2,32 @@ var React = require('react');
 var CannabisForm = require('CannabisForm');
 var CannabisMessage = require('CannabisMessage');
 var CannabisReports = require('CannabisReports');
+var StrainList = require('StrainList');
 var axios = require('axios');
+var uuid = require('node-uuid');
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 
 var Cannabis = React.createClass({
   getInitialState: function() {
     return {
-      isLoading: false
+      isLoading:    false,
+      strains:      []
     }
   },
   handleSearch: function(name) {
     var that = this;
     this.setState({isLoading: true});
     var dataL = [];
-    // const CANNABIS_REPORTS_URL = 'https://www.cannabisreports.com/api/v1.0/strains/search/:blue'
-    // var requestUrl = '${CANNABIS_REPORTS_URL}${name}';
     CannabisReports.getStrain(name).then(function(searchL) {
-      // console.log('FROMcannabisPAGE-dataL: ' + dataL);
+      // console.log('CANNABIS-getStrain -: PRE-RENDER:strains: ' + strains);
       that.setState({
-        name: name,
-        dataL: searchL,
-        isLoading: false
+        id:           uuid(),
+        name:         name,
+        dataL:        searchL,
+        isLoading:    false
       });
+      // console.log('CANNABIS-getStrain -: POST-RENDER:strains: ' + strains);
     },
     function(errorMessage) {
       alert(errorMessage);
@@ -32,24 +35,28 @@ var Cannabis = React.createClass({
     });
   },
   render: function () {
-    var {isLoading, name, dataL} = this.state;
-    // console.log('C-Page - Render');
+    var {isLoading, name, dataL, strains} = this.state;
+    // console.log('CANNABIS - Render strains: ' + {strains});
+    // console.log('CANNABIS - Render dataL: ' + {dataL});
+    // TODO try a different state method?
     function renderMessage() {
       if(isLoading) {
         return <h2>Searching Strains...</h2>;
       } else if (name) {
+        // otherwise use cannabis message
         return <CannabisMessage name={name} dataL={dataL}/>;
       }
     }
 
     return (
-      <div className="col-md-12">
-        <div className="col-md-4">
+      <div className="row col-md-12">
+        <div className="col-md-2">
+        </div>
+        <div className="col-md-8">
           <Card className="canna-card"
             style={{
               padding: '0'
             }}>
-
             <CardText className="canna-text"
               style={{
                 textAlign:       "center",
@@ -61,15 +68,17 @@ var Cannabis = React.createClass({
               <CannabisForm onSearch={this.handleSearch} />
             </CardText>
           </Card>
-        </div>
-        <div className="col-md-8">
-          <Card>
-            <CardText><h2>STRAINS</h2></CardText>
+          <Card
+            style={{
+              backgroundColor:    '#eee'
+            }}
+            >
             {renderMessage()}
           </Card>
         </div>
+        <div className="col-md-2">
+        </div>
       </div>
-
     );
   }
 });

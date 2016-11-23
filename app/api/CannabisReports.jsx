@@ -14,9 +14,9 @@ module.exports = {
       dataL = [res.data.data];
       // console.log('FROMapiPage-dataL: ' + dataL[0]);
       for (var i = 0, len = dataL[0].length; i < len; i++) {
-        // console.log('dataL - Item: ' + dataL[0][i].name);
+        // console.log('getStrain-Item: ' + dataL[0][i].ucpc);
         // searchL.push(dataL[0][i].name);
-        searchL.push(dataL[0][i].name);
+        searchL.push(<Strain name={dataL[0][i].name} />);
       }
       // console.log('C-R-FINALL-searchL: ' + searchL);
 

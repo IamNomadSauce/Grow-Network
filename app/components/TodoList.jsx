@@ -8,7 +8,16 @@ var TodoList = React.createClass({
     var renderTodos = () => {
       if (todos.length === 0) {
         return (
-          <p>Nothing left to do...</p>
+          <div
+            style={{
+              textAlign:    'center',
+              color:        '#aab2ba',
+              padding:      '25px'
+
+            }}>
+            <p>Nothing left to do...</p>
+          </div>
+
         );
       }
       return todos.map((todo) => {

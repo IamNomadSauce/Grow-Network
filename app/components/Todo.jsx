@@ -4,7 +4,6 @@ var moment = require('moment');
 require('app/assets/styles/todostyles.scss');
 
 var Todo = React.createClass({
-
   render: function() {
     var {id, text, completed, createdAt, completedAt, styles, value} = this.props;
     var renderDate = () => {
@@ -22,7 +21,7 @@ var Todo = React.createClass({
       <div className="card_container" onClick={() => {
           this.props.onToggle(id);
         }}>
-        <input type="checkbox" checked={completed} />
+
         <div className="card_header">{text}</div>
         <div className="card_footer">{renderDate()}</div>
       </div>

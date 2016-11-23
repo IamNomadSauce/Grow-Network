@@ -71,7 +71,7 @@ var TodoApp = React.createClass({
             }} >
             <AddTodo onAddTodo={this.handleAddTodo}/>
             <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
-            <TodoSearch onSearch={this.handleSearch}/>
+            
           </Card>
         </div>
         <div className="col-md-4">

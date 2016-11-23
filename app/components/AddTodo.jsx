@@ -6,7 +6,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 var AddTodo = React.createClass({
   getInitialState: function() {
     return {
-      tfValue: ''
+      tfValue:          '',
+      checked:          false,
+      searchText:       ''
     };
   },
   handleSubmit: function(e) {
@@ -37,6 +39,20 @@ var AddTodo = React.createClass({
     // Handle STATE change - PASS
     // console.log('Handle Change: ' + this.state.tfValue);
   },
+  handleToggle: function(e) {
+    // Toggling the checkbutton - PASS
+    // console.log('Checked: ' + this.state.checked);
+    this.setState({
+      checked:  !this.state.checked
+    })
+
+  },
+  // handleSearch: function(e) {
+  //   console.log('Search: ');
+  //   this.setState({
+  //     searchText: this.state.tfValue
+  //   });
+  // },
   render: function() {
     return (
       <div>
@@ -52,6 +68,12 @@ var AddTodo = React.createClass({
             label='ADD'
             type='submit'
             onClick={this.handleSubmit} />
+          <RaisedButton
+            label='Show Completed'
+            type='submit'
+            onClick={this.handleToggle}
+            checked={this.state.checked}
+            />
         </form>
       </div>
 
